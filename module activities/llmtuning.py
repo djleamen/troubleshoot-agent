@@ -16,8 +16,8 @@ from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
 
 # Step 1: Prepare the dataset
 # Dataset collection
-# Collect a dataset of anonymized patient feedback categorized by 
-# sentiment—positive, neutral, and negative. Preprocessing includes 
+# Collect a dataset of anonymized patient feedback categorized by
+# sentiment—positive, neutral, and negative. Preprocessing includes
 # cleaning, tokenizing, and splitting the data.
 
 # Load the tokenizer
@@ -73,7 +73,7 @@ print(data[['cleaned_text', 'label', 'padded_tokenized']].head())
 
 
 # Step 2: Split the dataset
-# Split your dataset into training, validation, and test sets. 
+# Split your dataset into training, validation, and test sets.
 # These splits serve distinct purposes: training teaches the model,
 # validation helps tune hyperparameters, and testing offers an unbiased evaluation.
 
@@ -86,7 +86,7 @@ print(
     f"Training Size: {len(train_data)}, Validation Size: {len(val_data)}, Test Size: {len(test_data)}")
 
 # Step 3: Set up the environment
-# Fine-tune the model in an environment with access to GPU/TPU resources. 
+# Fine-tune the model in an environment with access to GPU/TPU resources.
 # For this activity, we will use a pretrained BERT model configured for sentiment classification.
 # Additional Instructions for GPU Setup
 # For cloud environments: Use platforms like Google Colab or AWS SageMaker for GPU access.
@@ -125,14 +125,15 @@ test_dataset = test_dataset.map(lambda x: {"label": int(x["label"])})
 print(train_dataset[0])
 
 # Step 4: Configure hyperparameters
-# Define hyperparameters to control the model’s training process, 
+# Define hyperparameters to control the model’s training process,
 # such as learning rate and batch size.
 
 # Learning rate
-# The learning rate controls the size of the updates made to the model’s 
-# weights during each optimization step. For fine-tuning, a low learning 
-# rate—typically between 1e-5 and 5e-5—is crucial. This ensures that updates are gradual, 
-# allowing the model to adapt to the new task while preserving the valuable general knowledge learned during pretraining.
+# The learning rate controls the size of the updates made to the model’s
+# weights during each optimization step. For fine-tuning, a low learning
+# rate—typically between 1e-5 and 5e-5—is crucial. This ensures that updates are gradual,
+# allowing the model to adapt to the new task while preserving the valuable 
+# general knowledge learned during pretraining.
 
 # Load pre-trained BERT model
 model = AutoModelForSequenceClassification.from_pretrained(
@@ -151,7 +152,8 @@ training_args = TrainingArguments(
 )
 
 # **Explain 'eval_strategy':**
-# This determines when the model is evaluated. 'Epoch' evaluates the model after each training epoch.
+# This determines when the model is evaluated. 
+# 'Epoch' evaluates the model after each training epoch.
 
 # Step 5: Fine-tune the model
 # Train the model using the prepared dataset and monitor its progress.
@@ -187,7 +189,8 @@ f1 = f1_score(labels, preds, average="weighted")
 print(f"Accuracy: {accuracy}, F1 Score: {f1}")
 
 # **Explain metric importance**:
-# High F1 scores indicate balanced performance across all classes, crucial in tasks like sentiment analysis.
+# High F1 scores indicate balanced performance across all classes, 
+# crucial in tasks like sentiment analysis.
 
 # Step 7: Deploy the model
 # Save and deploy the model for real-time sentiment analysis.
