@@ -7,14 +7,17 @@ from transformers import AutoModelForSequenceClassification, AutoTokenizer
 import torch
 
 # Load the fine-tuned model
-model = AutoModelForSequenceClassification.from_pretrained('./module activities/fine_tuned_bert')  # type: ignore
-tokenizer = AutoTokenizer.from_pretrained('./module activities/fine_tuned_bert')
+model = AutoModelForSequenceClassification.from_pretrained(
+    './module activities/fine_tuned_bert')  # type: ignore
+tokenizer = AutoTokenizer.from_pretrained(
+    './module activities/fine_tuned_bert')
 
 # Test input
 TEST_TEXT = 'hi there'
 
 # Tokenize
-inputs = tokenizer(TEST_TEXT, padding=True, truncation=True, max_length=128, return_tensors='pt')
+inputs = tokenizer(TEST_TEXT, padding=True, truncation=True,
+                   max_length=128, return_tensors='pt')
 
 # Get prediction
 model.eval()
