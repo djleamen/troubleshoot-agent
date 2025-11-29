@@ -110,3 +110,4 @@ results = trainer.evaluate()
 
 # Print evaluation results
 print(f"Accuracy: {results['eval_accuracy']}")
+
