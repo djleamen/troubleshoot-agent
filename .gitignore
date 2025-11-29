@@ -4,3 +4,4 @@ module activities/logs/
 module activities/fine_tuned_bert
 __pycache__/
 results/checkpoint-*/
+.vscode/

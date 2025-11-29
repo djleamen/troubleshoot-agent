@@ -1,3 +1,8 @@
+"""
+Practice activity: Applying QLoRA
+From Building Intelligent Troubleshooting Agents by Microsoft on Coursera
+"""
+
 from transformers import GPT2ForSequenceClassification, Trainer, TrainingArguments
 from qlora import QuantizeModel, LoRALayer, adjust_qlora_rank
 
