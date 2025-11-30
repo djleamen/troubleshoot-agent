@@ -19,7 +19,6 @@ df['target'] = data.target # type: ignore
 
 # Explore the dataset
 print(df.head())
-print(df.info())
 
 # Handle missing data (example: filling missing values with the median)
 df.fillna(df.median(), inplace=True)

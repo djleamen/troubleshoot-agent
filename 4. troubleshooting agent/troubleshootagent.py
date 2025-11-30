@@ -25,7 +25,6 @@ df = pd.DataFrame(data)
 
 # Display the first few rows of the dataset
 print(df.head())
-print(df.info())
 
 from sklearn.ensemble import IsolationForest
 

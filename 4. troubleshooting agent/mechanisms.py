@@ -12,7 +12,6 @@ df = pd.DataFrame(data.data, columns=data.feature_names)
 df['target'] = data.target
 
 # Explore the dataset
-print(df.info())
 print(df.head())
 
 def validate_data(data):
