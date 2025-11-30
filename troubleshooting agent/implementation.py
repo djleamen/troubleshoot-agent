@@ -44,12 +44,14 @@ knowledge_base = {
 
 # Function to retrieve solutions
 def get_solution(issue):
+    """Retrieve solution from the knowledge base based on the issue."""
     return knowledge_base.get(issue, "No solution found for this issue.")
 
 # Example usage
 print(get_solution("overheating"))
 
 def troubleshoot(query):
+    """Simple troubleshooting function based on keywords in the query."""
     if "overheating" in query.lower():
         return get_solution("overheating")
     elif "slow" in query.lower():
