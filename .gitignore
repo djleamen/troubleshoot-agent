@@ -1,10 +1,10 @@
 venv/
-LLM fine-tuning/results/
 module activities/logs/
 fine_tuned_bert/
 __pycache__/
 .pytest_cache/
-results/checkpoint-*/
+results/
 .vscode/
 ml_errors.log
 ml_pipeline.log
+results_traditional/
