@@ -6,3 +6,4 @@ __pycache__/
 results/checkpoint-*/
 .vscode/
 ml_errors.log
+ml_pipeline.log
