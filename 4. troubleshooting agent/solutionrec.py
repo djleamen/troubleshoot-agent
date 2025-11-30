@@ -3,16 +3,14 @@ Practice activity: Solution recommendation
 From Building Intelligent Troubleshooting Agents by Microsoft on Coursera
 """
 
-import pandas as pd
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 
 # Load the dataset
-data = load_breast_cancer()
-df = pd.DataFrame(data.data, columns=data.feature_names)
-df['target'] = data.target
+data = load_breast_cancer(as_frame=True)  # type: ignore
+df = data.frame  # type: ignore
 
 # Explore the dataset
 print(df.head())
@@ -25,7 +23,8 @@ X = df.drop('target', axis=1)
 y = df['target']
 
 # Split into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42)
 
 # Train the KNN recommendation model
 knn = KNeighborsClassifier()

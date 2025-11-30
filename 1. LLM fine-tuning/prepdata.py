@@ -41,7 +41,7 @@ def clean_text(text):
     """Clean the input text and convert to lowercase."""
     text = text.lower()  # Convert all text to lowercase for uniformity
     text = re.sub(r'http\S+', '', text)  # Remove URLs from the text
-    text = re.sub(r'<.*?>', '', text)  # Remove any HTML tags from the text
+    text = re.sub(r'<[^>]*>', '', text)  # Remove any HTML tags from the text
     # Remove punctuation, keep only words and spaces
     text = re.sub(r'[^\w\s]', '', text)
     return text  # Return the cleaned text
@@ -204,8 +204,8 @@ val_dataset = TensorDataset(val_inputs, val_masks, val_labels)
 test_dataset = TensorDataset(test_inputs, test_masks, test_labels)
 
 # Create DataLoader objects
-train_dataloader = DataLoader(train_dataset, batch_size=16, shuffle=True)
-val_dataloader = DataLoader(val_dataset, batch_size=16)
-test_dataloader = DataLoader(test_dataset, batch_size=16)
+train_dataloader = DataLoader(train_dataset, batch_size=16, shuffle=True, num_workers=0)
+val_dataloader = DataLoader(val_dataset, batch_size=16, num_workers=0)
+test_dataloader = DataLoader(test_dataset, batch_size=16, num_workers=0)
 
 print("Training, validation, and test sets are prepared with attention masks!")
