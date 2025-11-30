@@ -3,7 +3,15 @@ Practice activity: Evaluating agent effectiveness
 From Building Intelligent Troubleshooting Agents by Microsoft on Coursera
 """
 
+import time
+
+import numpy as np
+import psutil
 import tensorflow as tf
+from sklearn.datasets import make_classification
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, precision_score
+from sklearn.model_selection import cross_val_score
 from tensorflow.keras.datasets import mnist
 
 # Load dataset
@@ -19,13 +27,12 @@ model = tf.keras.models.Sequential([
 ])
 
 # Compile the model
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
 model.fit(x_train, y_train, epochs=5, validation_data=(x_test, y_test))
 
-from sklearn.metrics import accuracy_score, precision_score
-import numpy as np
 
 # Make predictions on the test set
 y_pred_probs = model.predict(x_test)
@@ -39,7 +46,6 @@ print(f'Accuracy: {accuracy:.4f}')
 precision = precision_score(y_test, y_pred, average='weighted')
 print(f'Precision: {precision:.4f}')
 
-import time
 
 # Measure response time for multiple iterations
 start_time = time.time()
@@ -50,7 +56,6 @@ end_time = time.time()
 average_response_time = (end_time - start_time) / 25
 print(f"Average Response Time: {average_response_time:.4f} seconds")
 
-import psutil
 
 # Monitor resource usage
 cpu_usage = psutil.cpu_percent()
@@ -61,8 +66,6 @@ memory_usage = psutil.virtual_memory().percent
 print(f"CPU Usage: {cpu_usage}%")
 print(f"Memory Usage: {memory_usage}%")
 
-import numpy as np
-import time
 
 # Ensure correct shape before repeating
 print("Original x_test shape:", x_test.shape)  # Expected: (10000, 28, 28)
@@ -71,22 +74,22 @@ print("Original x_test shape:", x_test.shape)  # Expected: (10000, 28, 28)
 large_input = np.repeat(x_test, 10, axis=0)  # Expands batch size only
 
 # Verify new shape
-print("Large input shape after fix:", large_input.shape)  # Should be (100000, 28, 28)
+# Should be (100000, 28, 28)
+print("Large input shape after fix:", large_input.shape)
 
 # Measure performance under stress
 start_time = time.time()
 model.predict(large_input)  # Now matches model input (batch_size, 28, 28)
 end_time = time.time()
 
-print(f"Response Time under Stress (Reduced Size): {end_time - start_time:.4f} seconds")
+print(
+    f"Response Time under Stress (Reduced Size): {end_time - start_time:.4f} seconds")
 
-from sklearn.model_selection import cross_val_score
-from sklearn.datasets import make_classification
-from sklearn.ensemble import RandomForestClassifier
 
 # Example data generation for demonstration (replace with actual data)
 X, y = make_classification(n_samples=1000, n_features=20, random_state=42)
-agent_model = RandomForestClassifier()  # Replace with your actual model
+agent_model = RandomForestClassifier(
+    min_samples_leaf=2, max_features='sqrt', random_state=42)
 
 # Perform 5-fold cross-validation
 cv_scores = cross_val_score(agent_model, X, y, cv=5)
