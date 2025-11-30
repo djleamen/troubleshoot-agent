@@ -42,7 +42,7 @@ accuracy = accuracy_score(y_test, y_pred)
 print(f"Logistic Regression Accuracy: {accuracy * 100:.2f}%")
 
 # Train decision tree model
-tree = DecisionTreeClassifier()
+tree = DecisionTreeClassifier(ccp_alpha=0.0, random_state=42)
 tree.fit(X_train, y_train)
 
 # Make predictions
@@ -53,7 +53,7 @@ accuracy_tree = accuracy_score(y_test, y_pred_tree)
 print(f"Decision Tree Accuracy: {accuracy_tree * 100:.2f}%")
 
 # Train SVM model
-svm = SVC()
+svm = SVC(C=1.0, kernel='rbf', gamma='scale')
 svm.fit(X_train, y_train)
 
 # Make predictions
