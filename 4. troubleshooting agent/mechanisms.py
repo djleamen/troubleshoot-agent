@@ -3,8 +3,11 @@ Practice activity: Implementing mechanisms
 From Building Intelligent Troubleshooting Agents by Microsoft on Coursera
 """
 
+import logging
 import pandas as pd
 from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
 
 # Load the dataset
 data = load_breast_cancer()
@@ -15,6 +18,7 @@ df['target'] = data.target
 print(df.head())
 
 def validate_data(data):
+    """Validate the dataset for missing values and correct types."""
     try:
         if not isinstance(data, pd.DataFrame):
             raise ValueError("Input must be a pandas DataFrame.")
@@ -27,8 +31,6 @@ def validate_data(data):
 # Validate the dataset
 validate_data(df)
 
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.model_selection import train_test_split
 
 # Split the data into features and target
 X = df.drop('target', axis=1)
@@ -39,8 +41,9 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # Implement a decision tree model with error handling
 def train_model(X_train, y_train):
+    """Train a decision tree model with error handling."""
     try:
-        model = DecisionTreeClassifier()
+        model = DecisionTreeClassifier(ccp_alpha=0.0, random_state=42)
         model.fit(X_train, y_train)
         print("Model trained successfully.")
         return model
@@ -51,12 +54,11 @@ def train_model(X_train, y_train):
 # Train the model
 model = train_model(X_train, y_train)
 
-import logging
-
 # Set up logging to a file
 logging.basicConfig(filename='ml_errors.log', level=logging.ERROR)
 
 def validate_data_with_logging(data):
+    """Validate the dataset and log errors."""
     try:
         if not isinstance(data, pd.DataFrame):
             raise ValueError("Input must be a pandas DataFrame.")
@@ -64,7 +66,7 @@ def validate_data_with_logging(data):
             raise ValueError("Missing values detected in the dataset.")
         print("Data validation successful.")
     except ValueError as e:
-        logging.error(f"Data validation error: {e}")
+        logging.error("Data validation error: %s", e)
 
 # Validate the dataset and log errors
 validate_data_with_logging(df)
