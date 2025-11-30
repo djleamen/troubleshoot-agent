@@ -5,3 +5,4 @@ fine_tuned_bert/
 __pycache__/
 results/checkpoint-*/
 .vscode/
+ml_errors.log
