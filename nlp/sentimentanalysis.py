@@ -7,7 +7,7 @@ from transformers import pipeline
 
 # Initialize sentiment analyzer with specific model to avoid downloading issues
 sentiment_analyzer = pipeline( # type: ignore
-    "sentiment-analysis",
+    "sentiment-analysis", # type: ignore
     model="distilbert-base-uncased-finetuned-sst-2-english"
 )
 
