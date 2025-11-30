@@ -48,7 +48,7 @@ logging.info("Starting model training...")
 
 try:
     # Train the decision tree model
-    model = DecisionTreeClassifier()
+    model = DecisionTreeClassifier(ccp_alpha=0.0, random_state=42)
     model.fit(X_train, y_train)
     logging.info("Model trained successfully.")
 except Exception as e:

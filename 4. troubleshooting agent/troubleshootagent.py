@@ -10,21 +10,17 @@ import pandas as pd
 import numpy as np
 
 # Set random seed for reproducibility
-np.random.seed(42)
+rng = np.random.default_rng(42)
 
 # Generate synthetic data
-N_SAMPLES = 1000
+n_samples = 1000
 data = {
-    'timestamp': pd.date_range(start='2024-01-01', periods=N_SAMPLES, freq='h'),
-    # CPU usage in percentage
-    'cpu_usage': np.random.normal(50, 10, N_SAMPLES),
-    # Memory usage in percentage
-    'memory_usage': np.random.normal(60, 15, N_SAMPLES),
-    # Network latency in ms
-    'network_latency': np.random.normal(100, 20, N_SAMPLES),
-    'disk_io': np.random.normal(75, 10, N_SAMPLES),         # Disk I/O in MB/s
-    # 5% error rate
-    'error_rate': np.random.choice([0, 1], N_SAMPLES, p=[0.95, 0.05])
+    'timestamp': pd.date_range(start='2024-01-01', periods=n_samples, freq='h'),
+    'cpu_usage': rng.normal(50, 10, n_samples),       # CPU usage in percentage
+    'memory_usage': rng.normal(60, 15, n_samples),    # Memory usage in percentage
+    'network_latency': rng.normal(100, 20, n_samples), # Network latency in ms
+    'disk_io': rng.normal(75, 10, n_samples),         # Disk I/O in MB/s
+    'error_rate': rng.choice([0, 1], n_samples, p=[0.95, 0.05])  # 5% error rate
 }
 
 # Create DataFrame
@@ -74,7 +70,7 @@ print(df[df['anomaly'] == -1][['timestamp', 'anomaly', 'anomalous_columns']])
 
 def root_cause_analysis(X_train, y_train, X_test):
     """Train a decision tree classifier to predict root causes of anomalies."""
-    model = DecisionTreeClassifier()
+    model = DecisionTreeClassifier(ccp_alpha=0.0, random_state=42)
     model.fit(X_train, y_train)
     predictions = model.predict(X_test)
     return predictions
