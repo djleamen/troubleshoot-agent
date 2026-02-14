@@ -8,3 +8,4 @@ results/
 ml_errors.log
 ml_pipeline.log
 results_traditional/
+.DS_Store
